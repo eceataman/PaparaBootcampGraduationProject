@@ -26,6 +26,7 @@ builder.Services.AddDbContext<PaparaDbContext>(options =>
 
 // ?? Dependency Injection – Service registrations
 builder.Services.AddScoped<IExpenseService, ExpenseService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 // builder.Services.AddScoped<ICategoryService, CategoryService>(); // varsa eklersin
 // builder.Services.AddScoped<IUserService, UserService>();         // varsa eklersin
 
