@@ -93,7 +93,7 @@ namespace Papara.ExpenseTrackingSystem.API.Services
             expense.Status = ExpenseStatus.Approved;
             await _context.SaveChangesAsync();
 
-            // ✅ Hayali ödeme simülasyonu (loglama)
+            // Hayali ödeme simülasyonu (loglama)
             Console.WriteLine($"[SIMULATED PAYMENT] Kullanıcı {expense.UserId} için {expense.Amount} TL ödendi.");
         }
 

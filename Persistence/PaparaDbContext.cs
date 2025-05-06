@@ -21,7 +21,7 @@ public class PaparaDbContext : Microsoft.EntityFrameworkCore.DbContext
         modelBuilder.Entity<User>().HasData(
             new User
             {
-                Id = 4,
+                Id = 1,
                 FullName = "Admin User",
                 Email = "admin@mail.com",
                 PasswordHash = "admin123", // NOT: Gerçek projede hashlenmiş olmalı
@@ -30,7 +30,7 @@ public class PaparaDbContext : Microsoft.EntityFrameworkCore.DbContext
             },
             new User
             {
-                Id = 5,
+                Id = 2,
                 FullName = "Personel User",
                 Email = "personel@mail.com",
                 PasswordHash = "personel123",
