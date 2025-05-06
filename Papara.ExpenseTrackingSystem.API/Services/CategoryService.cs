@@ -56,15 +56,17 @@ public class CategoryService : ICategoryService
 
     public async Task<bool> DeleteAsync(int id)
     {
-        var category = await _context.Categories
-            .Include(c => c.Expenses)
-            .FirstOrDefaultAsync(c => c.Id == id);
+        var category = await _context.Categories.FindAsync(id);
+        if (category == null)
+            return false;
 
-        if (category is null) return false;
-        if (category.Expenses.Any()) return false;
+        bool hasExpenses = await _context.Expenses.AnyAsync(e => e.CategoryId == id);
+        if (hasExpenses)
+            return false;
 
         _context.Categories.Remove(category);
         await _context.SaveChangesAsync();
         return true;
     }
+
 }

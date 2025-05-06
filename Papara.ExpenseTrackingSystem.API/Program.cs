@@ -57,6 +57,8 @@ builder.Services.AddScoped<IExpenseService, ExpenseService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>(); // varsa eklersin
+builder.Services.AddScoped<IReportService, ReportService>();
+
 
 // ✅ CORS – İleride frontend bağlamak için
 builder.Services.AddCors(options =>

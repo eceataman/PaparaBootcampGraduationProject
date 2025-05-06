@@ -59,6 +59,12 @@ namespace Papara.ExpenseTrackingSystem.API.Services
 
         public async Task CreateExpenseAsync(ExpenseCreateDto dto, int userId)
         {
+            // VALIDATION: Geçerli kategori var mı?
+            var categoryExists = await _context.Categories.AnyAsync(c => c.Id == dto.CategoryId);
+            if (!categoryExists)
+                throw new ArgumentException("Geçersiz kategori ID.");
+
+            // Masraf nesnesi oluşturuluyor
             var newExpense = new Expense
             {
                 UserId = userId,
@@ -70,13 +76,14 @@ namespace Papara.ExpenseTrackingSystem.API.Services
                 Status = ExpenseStatus.Pending,
                 Files = dto.Files?.Select(f => new ExpenseFile
                 {
-                    FilePath = f.FileName // TODO: Gerçek dosya yolu eklenmeli
+                    FilePath = f.FileName
                 }).ToList()
             };
 
             await _context.Expenses.AddAsync(newExpense);
             await _context.SaveChangesAsync();
         }
+
 
         public async Task ApproveExpenseAsync(int expenseId)
         {

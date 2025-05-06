@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Papara.ExpenseTrackingSystem.API.DTOs;
 using Papara.ExpenseTrackingSystem.API.Interfaces;
 
@@ -49,4 +50,7 @@ public class CategoryController : ControllerBase
             ? Ok(new { message = "Kategori silindi." })
             : BadRequest("Kategori silinemedi. Aktif masraf olabilir.");
     }
+
+
+
 }
