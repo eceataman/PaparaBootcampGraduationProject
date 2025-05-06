@@ -5,5 +5,7 @@ namespace Papara.ExpenseTrackingSystem.API.Interfaces
     public interface IAuthService
     {
         Task<AuthResultDto?> LoginAsync(UserLoginDto loginDto);
+      
+
     }
 }

@@ -86,7 +86,8 @@ namespace Papara.ExpenseTrackingSystem.API.Services
             expense.Status = ExpenseStatus.Approved;
             await _context.SaveChangesAsync();
 
-            // TODO: Sanal ödeme simülasyonu entegre edilebilir
+            // ✅ Hayali ödeme simülasyonu (loglama)
+            Console.WriteLine($"[SIMULATED PAYMENT] Kullanıcı {expense.UserId} için {expense.Amount} TL ödendi.");
         }
 
         public async Task RejectExpenseAsync(int expenseId, string reason)
@@ -117,6 +118,35 @@ namespace Papara.ExpenseTrackingSystem.API.Services
                 })
                 .ToListAsync();
         }
+        public async Task<List<ExpenseDto>> FilterExpensesAsync(int userId, string? status, DateTime? startDate, DateTime? endDate)
+        {
+            var query = _context.Expenses
+                .Where(e => e.UserId == userId)
+                .Include(e => e.Category)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(status) && Enum.TryParse<ExpenseStatus>(status, true, out var parsedStatus))
+                query = query.Where(e => e.Status == parsedStatus);
+
+            if (startDate.HasValue)
+                query = query.Where(e => e.CreatedAt >= startDate.Value);
+
+            if (endDate.HasValue)
+                query = query.Where(e => e.CreatedAt <= endDate.Value);
+
+            return await query.Select(e => new ExpenseDto
+            {
+                Id = e.Id,
+                CategoryName = e.Category.Name,
+                Amount = e.Amount,
+                PaymentTool = e.PaymentTool,
+                Location = e.Location,
+                CreatedAt = e.CreatedAt,
+                Status = e.Status.ToString(),
+                RejectionReason = e.RejectionReason
+            }).ToListAsync();
+        }
+
 
     }
 }

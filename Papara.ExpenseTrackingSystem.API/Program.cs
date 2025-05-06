@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+ï»¿using Microsoft.EntityFrameworkCore;
 using Papara.ExpenseTrackingSystem.API.Interfaces;
 using Papara.ExpenseTrackingSystem.API.Services;
 using Persistence; // PaparaDbContext buradaysa
@@ -9,7 +9,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ? Add services to the container
+// âœ… Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
@@ -21,10 +21,10 @@ builder.Services.AddSwaggerGen(c =>
         Version = "v1"
     });
 
-    // ?? JWT Authentication için Swagger'a güvenlik tanýmý
+    // ðŸ”’ JWT Authentication iÃ§in Swagger'a gÃ¼venlik tanÄ±mÄ±
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Description = "JWT kullanarak eriþim için. Örnek: Bearer <token>",
+        Description = "JWT kullanarak eriÅŸim iÃ§in. Ã–rnek: Bearer <token>",
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
@@ -48,17 +48,17 @@ builder.Services.AddSwaggerGen(c =>
 
 
 
-// ? EF Core – DbContext
+// âœ… EF Core â€“ DbContext
 builder.Services.AddDbContext<PaparaDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// ? Dependency Injection – Service registrations
+// âœ… Dependency Injection â€“ Service registrations
 builder.Services.AddScoped<IExpenseService, ExpenseService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-// builder.Services.AddScoped<IUserService, UserService>(); // varsa eklersin
+builder.Services.AddScoped<IUserService, UserService>(); // varsa eklersin
 
-// ? CORS – Ýleride frontend baðlamak için
+// âœ… CORS â€“ Ä°leride frontend baÄŸlamak iÃ§in
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -69,7 +69,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-// ? Authentication ve Authorization – app.Build()'dan önce
+// âœ… Authentication ve Authorization â€“ app.Build()'dan Ã¶nce
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -90,10 +90,10 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
-// ? app yapýlandýrmasý
+// âœ… app yapÄ±landÄ±rmasÄ±
 var app = builder.Build();
 
-// ? Swagger UI sadece development ortamýnda çalýþýr
+// âœ… Swagger UI sadece development ortamÄ±nda Ã§alÄ±ÅŸÄ±r
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -104,7 +104,7 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
 
-// ? Bu sýraya dikkat!
+// âœ… Bu sÄ±raya dikkat!
 app.UseAuthentication();
 app.UseAuthorization();
 

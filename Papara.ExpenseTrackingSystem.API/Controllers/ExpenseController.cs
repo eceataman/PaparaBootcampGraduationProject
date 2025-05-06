@@ -67,4 +67,15 @@ public class ExpenseController : ControllerBase
         await _expenseService.RejectExpenseAsync(id, reason);
         return Ok(new { message = "Masraf talebi reddedildi." });
     }
+    [HttpGet("filter")]
+    public async Task<IActionResult> Filter([FromQuery] string? status, [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate)
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (userIdClaim == null) return Unauthorized();
+        int userId = int.Parse(userIdClaim.Value);
+
+        var result = await _expenseService.FilterExpensesAsync(userId, status, startDate, endDate);
+        return Ok(result);
+    }
+
 }
