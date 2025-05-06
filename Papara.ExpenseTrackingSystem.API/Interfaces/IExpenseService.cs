@@ -9,6 +9,8 @@ namespace Papara.ExpenseTrackingSystem.API.Interfaces
         Task CreateExpenseAsync(ExpenseCreateDto dto, int userId);
         Task ApproveExpenseAsync(int id);
         Task RejectExpenseAsync(int id, string reason);
+        Task<List<ExpenseDto>> GetAllExpensesAsync();
+
     }
 
 }

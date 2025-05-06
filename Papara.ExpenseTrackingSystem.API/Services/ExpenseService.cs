@@ -99,5 +99,24 @@ namespace Papara.ExpenseTrackingSystem.API.Services
 
             await _context.SaveChangesAsync();
         }
+        public async Task<List<ExpenseDto>> GetAllExpensesAsync()
+        {
+            return await _context.Expenses
+                .Include(e => e.Category)
+                .Include(e => e.User)
+                .Select(e => new ExpenseDto
+                {
+                    Id = e.Id,
+                    CategoryName = e.Category.Name,
+                    Amount = e.Amount,
+                    PaymentTool = e.PaymentTool,
+                    Location = e.Location,
+                    CreatedAt = e.CreatedAt,
+                    Status = e.Status.ToString(),
+                    RejectionReason = e.RejectionReason
+                })
+                .ToListAsync();
+        }
+
     }
 }
