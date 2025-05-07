@@ -3,6 +3,8 @@
 ## 🎯 Proje Amacı
 
 Bu proje, bir şirketin sahada çalışan personelinin masraf kalemlerini hızlıca sisteme girmesini, yöneticilerin bu masrafları onaylamasını veya reddetmesini, onaylanan talepler için ödeme simülasyonu yapılmasını ve tüm sürecin güvenli, rol bazlı ve raporlanabilir şekilde yönetilmesini sağlar.
+Projeye dair ekran görüntüleri için:
+https://drive.google.com/drive/folders/1dMWH-wJh0zfstGbY6xsV--FTffu-Lfqb?usp=drive_link
 
 ## ⚙️ Özellikler
 
